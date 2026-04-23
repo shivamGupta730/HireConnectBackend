@@ -1,6 +1,7 @@
-using HireConnect.AuthService.Data;
-using HireConnect.AuthService.Repositories;
-using HireConnect.AuthService.Services;
+using HireConnect.JobService.Data;
+using HireConnect.JobService.Repositories;
+using HireConnect.JobService.Services;
+using HireConnect.JobService.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -8,31 +9,18 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure to run on port 5000
+// Configure to run on port 5003 (matching API Gateway)
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5000);
+    options.ListenAnyIP(5003);
 });
-
-// Configure API base URL for OAuth callbacks
-builder.Configuration["ApiBaseUrl"] = builder.Configuration.GetValue<string>("ApiBaseUrl", "http://localhost:5000");
 
 // Add services to the container.
-builder.Services.AddDbContext<AuthDbContext>(options =>
+builder.Services.AddDbContext<JobDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-// GitHub OAuth Service
-builder.Services.AddHttpClient<IGitHubOAuthService, GitHubOAuthService>(client =>
-{
-    client.BaseAddress = new Uri("https://api.github.com/");
-    client.DefaultRequestHeaders.Add("User-Agent", "HireConnect-AuthService");
-    client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
-});
-
-builder.Services.AddScoped<IGitHubOAuthService, GitHubOAuthService>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<IJobService, JobService>();
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -61,7 +49,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "HireConnect Auth Service", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "HireConnect Job Service", Version = "v1" });
     
     // Add JWT Authentication to Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -102,11 +90,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Add exception handling middleware
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

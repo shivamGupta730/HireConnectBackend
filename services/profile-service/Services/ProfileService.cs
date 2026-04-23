@@ -12,17 +12,17 @@ public class ProfileService : IProfileService
         _repository = repository;
     }
 
-    public async Task<CandidateProfile?> GetMyProfileAsync(int userId)
+    public async Task<Candidate?> GetMyProfileAsync(int userId)
     {
         return await _repository.GetCandidateByUserIdAsync(userId);
     }
 
-    public async Task<CandidateProfile> CreateCandidateAsync(CandidateProfile candidate)
+    public async Task<Candidate> CreateCandidateAsync(Candidate candidate)
     {
         return await _repository.CreateCandidateAsync(candidate);
     }
 
-    public async Task<CandidateProfile> UpdateCandidateAsync(CandidateProfile candidate)
+    public async Task<Candidate> UpdateCandidateAsync(Candidate candidate)
     {
         return await _repository.UpdateCandidateAsync(candidate);
     }
@@ -33,17 +33,17 @@ public class ProfileService : IProfileService
     }
 
     // Recruiter Profile Methods
-    public async Task<RecruiterProfile?> GetMyRecruiterProfileAsync(int userId)
+    public async Task<Recruiter?> GetMyRecruiterProfileAsync(int userId)
     {
         return await _repository.GetRecruiterByUserIdAsync(userId);
     }
 
-    public async Task<RecruiterProfile> CreateRecruiterAsync(RecruiterProfile recruiter)
+    public async Task<Recruiter> CreateRecruiterAsync(Recruiter recruiter)
     {
         return await _repository.CreateRecruiterAsync(recruiter);
     }
 
-    public async Task<RecruiterProfile> UpdateRecruiterAsync(RecruiterProfile recruiter)
+    public async Task<Recruiter> UpdateRecruiterAsync(Recruiter recruiter)
     {
         return await _repository.UpdateRecruiterAsync(recruiter);
     }

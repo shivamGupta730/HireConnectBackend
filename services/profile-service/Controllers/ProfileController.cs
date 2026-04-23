@@ -50,10 +50,10 @@ public class ProfileController : ControllerBase
                 fullName = candidateProfile.FullName,
                 email = candidateProfile.Email,
                 mobile = candidateProfile.Mobile,
-                skills = candidateProfile.Skills,
+                skills = string.Join(",", candidateProfile.Skills),
                 experience = candidateProfile.Experience,
-                education = candidateProfile.Education,
-                resumeUrl = candidateProfile.ResumeUrl
+                education = candidateProfile.Education ?? "",
+                resumeUrl = candidateProfile.ResumeUrl ?? ""
             };
         }
 
@@ -65,11 +65,11 @@ public class ProfileController : ControllerBase
                 id = recruiterProfile.Id,
                 fullName = recruiterProfile.FullName,
                 companyName = recruiterProfile.CompanyName,
-                industry = recruiterProfile.Industry,
-                website = recruiterProfile.Website,
-                description = recruiterProfile.Description,
-                companySize = recruiterProfile.CompanySize,
-                headquarters = recruiterProfile.Headquarters
+                industry = recruiterProfile.Industry ?? "",
+                website = recruiterProfile.Website ?? "",
+                description = recruiterProfile.Description ?? "",
+                companySize = recruiterProfile.CompanySize ?? "",
+                headquarters = recruiterProfile.Headquarters ?? ""
             };
         }
 
@@ -87,9 +87,9 @@ public class ProfileController : ControllerBase
 
     // POST /api/Profile/candidate
     [HttpPost("candidate")]
-    public async Task<IActionResult> CreateCandidate([FromBody] CreateCandidateRequest request)
+    public async Task<IActionResult> CreateCandidate([FromBody] RequestWrapper<CreateCandidateRequest> wrapperRequest)
     {
-        if (request == null)
+        if (wrapperRequest?.Request == null)
         {
             return BadRequest(new
             {
@@ -97,6 +97,8 @@ public class ProfileController : ControllerBase
                 message = "Invalid data"
             });
         }
+
+        var request = wrapperRequest.Request;
 
         // Extract userId from JWT
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -123,21 +125,22 @@ public class ProfileController : ControllerBase
         }
 
         // Map DTO to entity
-        var candidate = new CandidateProfile
+        var candidate = new Candidate
         {
             UserId = userId,
             FullName = request.fullName,
             Email = request.email,
             Mobile = request.mobile,
-            Skills = request.skills,
+            Skills = string.IsNullOrWhiteSpace(request.skills) 
+                ? new List<string>() 
+                : request.skills.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList(),
             Experience = request.experience,
             Education = request.education,
             ResumeUrl = request.resumeUrl,
             PortfolioUrl = request.portfolioUrl,
             LinkedInUrl = request.linkedInUrl,
             GitHubUrl = request.gitHubUrl,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow
         };
 
         var result = await _profileService.CreateCandidateAsync(candidate);
@@ -149,7 +152,7 @@ public class ProfileController : ControllerBase
             fullName = result.FullName,
             email = result.Email,
             mobile = result.Mobile,
-            skills = result.Skills,
+            skills = string.Join(",", result.Skills),
             experience = result.Experience,
             education = result.Education
         };
@@ -164,9 +167,9 @@ public class ProfileController : ControllerBase
 
     // POST /api/Profile/recruiter
     [HttpPost("recruiter")]
-    public async Task<IActionResult> CreateRecruiter([FromBody] CreateRecruiterRequest request)
+    public async Task<IActionResult> CreateRecruiter([FromBody] RequestWrapper<CreateRecruiterRequest> wrapperRequest)
     {
-        if (request == null)
+        if (wrapperRequest?.Request == null)
         {
             return BadRequest(new
             {
@@ -174,6 +177,8 @@ public class ProfileController : ControllerBase
                 message = "Invalid data"
             });
         }
+
+        var request = wrapperRequest.Request;
 
         // Extract userId from JWT
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -200,7 +205,7 @@ public class ProfileController : ControllerBase
         }
 
         // Map DTO to entity
-        var recruiter = new RecruiterProfile
+        var recruiter = new Recruiter
         {
             UserId = userId,
             FullName = request.fullName,
@@ -210,8 +215,7 @@ public class ProfileController : ControllerBase
             Description = request.description,
             CompanySize = request.companySize,
             Headquarters = request.headquarters,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow
         };
 
         var result = await _profileService.CreateRecruiterAsync(recruiter);
@@ -278,7 +282,9 @@ public class ProfileController : ControllerBase
         existingProfile.FullName = request.fullName;
         existingProfile.Email = request.email;
         existingProfile.Mobile = request.mobile;
-        existingProfile.Skills = request.skills;
+        existingProfile.Skills = string.IsNullOrWhiteSpace(request.skills) 
+            ? new List<string>() 
+            : request.skills.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(s => s.Trim()).ToList();
         existingProfile.Experience = request.experience;
         existingProfile.Education = request.education;
         existingProfile.ResumeUrl = request.resumeUrl;
@@ -296,7 +302,7 @@ public class ProfileController : ControllerBase
             fullName = result.FullName,
             email = result.Email,
             mobile = result.Mobile,
-            skills = result.Skills,
+            skills = string.Join(",", result.Skills),
             experience = result.Experience,
             education = result.Education
         };

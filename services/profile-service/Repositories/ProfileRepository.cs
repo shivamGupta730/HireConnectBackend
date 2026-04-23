@@ -14,69 +14,83 @@ public class ProfileRepository : IProfileRepository
     }
 
     // 🔥 Candidate Profile
-    public async Task<CandidateProfile?> GetCandidateByUserIdAsync(int userId)
+    public async Task<Candidate?> GetCandidateByUserIdAsync(int userId)
     {
-        return await _context.CandidateProfiles
+        return await _context.Candidates
             .FirstOrDefaultAsync(c => c.UserId == userId);
     }
 
-    public async Task<CandidateProfile> CreateCandidateAsync(CandidateProfile candidate)
+    public async Task<Candidate> CreateCandidateAsync(Candidate candidate)
     {
-        _context.CandidateProfiles.Add(candidate);
+        // Always use UserId as identity across services - check for existing profile
+        var existingCandidate = await GetCandidateByUserIdAsync(candidate.UserId);
+        if (existingCandidate != null)
+        {
+            throw new InvalidOperationException($"Candidate profile already exists for UserId: {candidate.UserId}");
+        }
+
+        _context.Candidates.Add(candidate);
         await _context.SaveChangesAsync();
         return candidate;
     }
 
-    public async Task<CandidateProfile> UpdateCandidateAsync(CandidateProfile candidate)
+    public async Task<Candidate> UpdateCandidateAsync(Candidate candidate)
     {
-        _context.CandidateProfiles.Update(candidate);
+        _context.Candidates.Update(candidate);
         await _context.SaveChangesAsync();
         return candidate;
     }
 
     public async Task<bool> DeleteCandidateAsync(int userId)
     {
-        var candidate = await _context.CandidateProfiles
+        var candidate = await _context.Candidates
             .FirstOrDefaultAsync(c => c.UserId == userId);
 
         if (candidate == null)
             return false;
 
-        _context.CandidateProfiles.Remove(candidate);
+        _context.Candidates.Remove(candidate);
         await _context.SaveChangesAsync();
         return true;
     }
 
     // 🔥 Recruiter Profile
-    public async Task<RecruiterProfile?> GetRecruiterByUserIdAsync(int userId)
+    public async Task<Recruiter?> GetRecruiterByUserIdAsync(int userId)
     {
-        return await _context.RecruiterProfiles
+        return await _context.Recruiters
             .FirstOrDefaultAsync(r => r.UserId == userId);
     }
 
-    public async Task<RecruiterProfile> CreateRecruiterAsync(RecruiterProfile recruiter)
+    public async Task<Recruiter> CreateRecruiterAsync(Recruiter recruiter)
     {
-        _context.RecruiterProfiles.Add(recruiter);
+        // Always use UserId as identity across services - check for existing profile
+        var existingRecruiter = await GetRecruiterByUserIdAsync(recruiter.UserId);
+        if (existingRecruiter != null)
+        {
+            throw new InvalidOperationException($"Recruiter profile already exists for UserId: {recruiter.UserId}");
+        }
+
+        _context.Recruiters.Add(recruiter);
         await _context.SaveChangesAsync();
         return recruiter;
     }
 
-    public async Task<RecruiterProfile> UpdateRecruiterAsync(RecruiterProfile recruiter)
+    public async Task<Recruiter> UpdateRecruiterAsync(Recruiter recruiter)
     {
-        _context.RecruiterProfiles.Update(recruiter);
+        _context.Recruiters.Update(recruiter);
         await _context.SaveChangesAsync();
         return recruiter;
     }
 
     public async Task<bool> DeleteRecruiterAsync(int userId)
     {
-        var recruiter = await _context.RecruiterProfiles
+        var recruiter = await _context.Recruiters
             .FirstOrDefaultAsync(r => r.UserId == userId);
 
         if (recruiter == null)
             return false;
 
-        _context.RecruiterProfiles.Remove(recruiter);
+        _context.Recruiters.Remove(recruiter);
         await _context.SaveChangesAsync();
         return true;
     }
