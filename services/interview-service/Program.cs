@@ -13,10 +13,7 @@ builder.Services.AddDbContext<InterviewDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IInterviewRepository, InterviewRepository>();
-builder.Services.AddScoped<IInterviewService, InterviewService>();
-
-// Register HttpClient for inter-service communication
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<IInterviewService, InterviewService>();
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

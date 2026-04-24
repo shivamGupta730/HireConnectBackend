@@ -1,22 +1,9 @@
 using HireConnect.JobService.Models;
+using HireConnect.Shared.Models;
 using System.ComponentModel.DataAnnotations;
+using JobStatus = HireConnect.JobService.Models.JobStatus;
 
 namespace HireConnect.JobService.DTOs;
-
-public class BaseRequest
-{
-    public int Page { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
-}
-
-public class PagedResponse<T>
-{
-    public List<T> Data { get; set; } = new();
-    public int Page { get; set; }
-    public int PageSize { get; set; }
-    public int TotalCount { get; set; }
-    public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
-}
 
 public class JobResponseDto
 {
@@ -44,15 +31,6 @@ public class JobResponseDto
     public int ApplicationCount { get; set; }
 }
 
-public class JobSearchRequestDto : BaseRequest
-{
-    public string? Query { get; set; }
-    public string? Category { get; set; }
-    public string? Location { get; set; }
-    public decimal? MinSalary { get; set; }
-    public decimal? MaxSalary { get; set; }
-    public string? Type { get; set; }
-}
 
 public class UpdateJobStatusDto
 {

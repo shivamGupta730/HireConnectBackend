@@ -1,5 +1,8 @@
-using HireConnect.JobService.Models;
+using HireConnect.Shared.Models;
 using HireConnect.JobService.DTOs;
+using HireConnect.JobService.Models;
+using Job = HireConnect.JobService.Models.Job;
+using JobStatus = HireConnect.JobService.Models.JobStatus;
 
 namespace HireConnect.JobService.Repositories;
 

@@ -13,10 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
-builder.Services.AddScoped<IApplicationService, ApplicationService>();
-
-// Register HttpClient for inter-service communication
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<IApplicationService, ApplicationService>();
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

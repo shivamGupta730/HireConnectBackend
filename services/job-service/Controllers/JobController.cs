@@ -1,9 +1,11 @@
 using HireConnect.JobService.Services;
 using HireConnect.JobService.DTOs;
 using HireConnect.JobService.Models;
+using HireConnect.Shared.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using JobStatus = HireConnect.JobService.Models.JobStatus;
 
 namespace HireConnect.JobService.Controllers;
 
@@ -20,7 +22,6 @@ public class JobController : ControllerBase
         _logger = logger;
     }
 
-    // Always use UserId as identity across services - extract from JWT token
     private int GetCurrentUserId()
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

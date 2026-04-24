@@ -1,6 +1,7 @@
 using HireConnect.InterviewService.Repositories;
 using HireConnect.InterviewService.Models;
 using HireConnect.InterviewService.DTOs;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace HireConnect.InterviewService.Services;
@@ -101,7 +102,7 @@ public class InterviewService : IInterviewService
             ApplicationId = request.ApplicationId,
             JobId = applicationInfo.JobId,
             CandidateId = applicationInfo.CandidateId,
-            ScheduledAt = request.ScheduledAt,
+            ScheduledAt = request.ScheduledAt.ToUniversalTime(),
             MeetingLink = request.MeetingLink,
             Notes = request.Notes,
             Status = InterviewStatus.Scheduled,
@@ -112,6 +113,9 @@ public class InterviewService : IInterviewService
         
         // Update application status to InterviewScheduled
         await UpdateApplicationStatusAsync(request.ApplicationId, "InterviewScheduled");
+        
+        // Send notification after successful interview creation
+        await SendInterviewNotificationAsync(createdInterview);
 
         return MapToInterviewResponseDto(createdInterview);
     }
@@ -333,6 +337,31 @@ public class InterviewService : IInterviewService
             CreatedAt = interview.CreatedAt,
             UpdatedAt = interview.UpdatedAt
         };
+    }
+
+    private async Task SendInterviewNotificationAsync(Interview interview)
+    {
+        try
+        {
+            var notificationServiceUrl = _configuration["ServiceUrls:NotificationService"] ?? "http://localhost:5006";
+            
+            _logger.LogInformation(
+                "Sending interview notification to user {UserId} via {Url}",
+                interview.CandidateId,
+                notificationServiceUrl
+            );
+
+            await _httpClient.PostAsJsonAsync($"{notificationServiceUrl}/api/Notification", new
+            {
+                userId = interview.CandidateId,
+                type = "Interview",
+                message = "Interview scheduled successfully"
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Notification failed but interview should still succeed");
+        }
     }
 }
 

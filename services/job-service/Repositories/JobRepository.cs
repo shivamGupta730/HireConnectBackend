@@ -1,7 +1,10 @@
 using HireConnect.JobService.Data;
 using HireConnect.JobService.Models;
 using HireConnect.JobService.DTOs;
+using HireConnect.Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using Job = HireConnect.JobService.Models.Job;
+using JobStatus = HireConnect.JobService.Models.JobStatus;
 
 namespace HireConnect.JobService.Repositories;
 

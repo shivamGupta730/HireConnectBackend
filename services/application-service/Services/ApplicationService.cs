@@ -1,6 +1,7 @@
 using HireConnect.ApplicationService.Repositories;
 using HireConnect.ApplicationService.Models;
 using HireConnect.ApplicationService.DTOs;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace HireConnect.ApplicationService.Services;
@@ -101,6 +102,10 @@ public class ApplicationService : IApplicationService
         };
 
         var createdApplication = await _applicationRepository.CreateAsync(application);
+        
+        // Send notification after successful application creation
+        await SendApplicationNotificationAsync(createdApplication);
+        
         return MapToApplicationResponseDto(createdApplication);
     }
 
@@ -237,5 +242,35 @@ public class ApplicationService : IApplicationService
             (ApplicationStatus.InterviewScheduled, ApplicationStatus.Rejected) => true,
             _ => false
         };
+    }
+
+    private async Task SendApplicationNotificationAsync(Application application)
+    {
+        try
+        {
+            _logger.LogInformation("Sending notification for user {UserId}", application.CandidateId);
+
+            var notification = new
+            {
+                userId = application.CandidateId,
+                type = "Application",
+                message = "Application submitted successfully"
+            };
+
+            var response = await _httpClient.PostAsJsonAsync("http://localhost:5006/api/Notification", notification);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError("Notification API failed with status {Status}", response.StatusCode);
+            }
+            else
+            {
+                _logger.LogInformation("Notification sent successfully for user {UserId}", application.CandidateId);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to send notification for user {UserId}", application.CandidateId);
+        }
     }
 }
