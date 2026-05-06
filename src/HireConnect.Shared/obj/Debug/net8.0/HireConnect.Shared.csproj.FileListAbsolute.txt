@@ -1,0 +1,13 @@
+D:\HireCoonectBackend\src\HireConnect.Shared\bin\Debug\net8.0\HireConnect.Shared.deps.json
+D:\HireCoonectBackend\src\HireConnect.Shared\bin\Debug\net8.0\HireConnect.Shared.dll
+D:\HireCoonectBackend\src\HireConnect.Shared\bin\Debug\net8.0\HireConnect.Shared.pdb
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.csproj.AssemblyReference.cache
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.AssemblyInfoInputs.cache
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.AssemblyInfo.cs
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.csproj.CoreCompileInputs.cache
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.sourcelink.json
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.dll
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\refint\HireConnect.Shared.dll
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\HireConnect.Shared.pdb
+D:\HireCoonectBackend\src\HireConnect.Shared\obj\Debug\net8.0\ref\HireConnect.Shared.dll
