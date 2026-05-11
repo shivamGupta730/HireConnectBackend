@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ELBRBMg8zkQw2jkaJ2E91+ZaoPhhdEZvAfLiS9GiNV4=",
+  "Source": "HireConnect.JobService",
+  "BasePath": "_content/HireConnect.JobService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

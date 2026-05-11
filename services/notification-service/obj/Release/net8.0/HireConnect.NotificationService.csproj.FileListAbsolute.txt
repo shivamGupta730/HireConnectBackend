@@ -1,0 +1,7 @@
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.csproj.AssemblyReference.cache
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.GeneratedMSBuildEditorConfig.editorconfig
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.AssemblyInfoInputs.cache
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.AssemblyInfo.cs
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.csproj.CoreCompileInputs.cache
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.MvcApplicationPartsAssemblyInfo.cs
+D:\HireCoonectBackend\services\notification-service\obj\Release\net8.0\HireConnect.NotificationService.MvcApplicationPartsAssemblyInfo.cache
