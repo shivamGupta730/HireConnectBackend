@@ -515,3 +515,4 @@ D:\HireCoonectBackend\tests\HireConnect.ApplicationService.Tests\obj\Debug\net8.
 D:\HireCoonectBackend\tests\HireConnect.ApplicationService.Tests\obj\Debug\net8.0\HireConnect.ApplicationService.Tests.pdb
 D:\HireCoonectBackend\tests\HireConnect.ApplicationService.Tests\obj\Debug\net8.0\HireConnect.ApplicationService.Tests.genruntimeconfig.cache
 D:\HireCoonectBackend\tests\HireConnect.ApplicationService.Tests\obj\Debug\net8.0\ref\HireConnect.ApplicationService.Tests.dll
+D:\HireCoonectBackend\tests\HireConnect.ApplicationService.Tests\bin\Debug\net8.0\appsettings.Production.json

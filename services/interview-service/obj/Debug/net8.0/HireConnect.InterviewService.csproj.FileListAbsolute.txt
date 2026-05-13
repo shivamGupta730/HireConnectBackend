@@ -113,3 +113,4 @@ D:\HireCoonectBackend\services\interview-service\obj\Debug\net8.0\refint\HireCon
 D:\HireCoonectBackend\services\interview-service\obj\Debug\net8.0\HireConnect.InterviewService.pdb
 D:\HireCoonectBackend\services\interview-service\obj\Debug\net8.0\HireConnect.InterviewService.genruntimeconfig.cache
 D:\HireCoonectBackend\services\interview-service\obj\Debug\net8.0\ref\HireConnect.InterviewService.dll
+D:\HireCoonectBackend\services\interview-service\bin\Debug\net8.0\appsettings.Production.json

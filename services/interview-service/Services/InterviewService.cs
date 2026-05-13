@@ -171,7 +171,13 @@ public class InterviewService : IInterviewService
     {
         try
         {
-            var applicationServiceUrl = _configuration["ServiceUrls:ApplicationService"] ?? "http://localhost:5004";
+            var applicationServiceUrl = _configuration["ServiceUrls:ApplicationService"];
+            if (string.IsNullOrEmpty(applicationServiceUrl))
+            {
+                _logger.LogError("ApplicationService URL is not configured");
+                return null;
+            }
+
             var response = await _httpClient.GetAsync($"{applicationServiceUrl}/api/application/{applicationId}");
             
             if (!response.IsSuccessStatusCode)
@@ -217,7 +223,13 @@ public class InterviewService : IInterviewService
     {
         try
         {
-            var applicationServiceUrl = _configuration["ServiceUrls:ApplicationService"] ?? "http://localhost:5004";
+            var applicationServiceUrl = _configuration["ServiceUrls:ApplicationService"];
+            if (string.IsNullOrEmpty(applicationServiceUrl))
+            {
+                _logger.LogError("ApplicationService URL is not configured");
+                return null;
+            }
+
             var response = await _httpClient.GetAsync($"{applicationServiceUrl}/api/application/{applicationId}");
             
             if (!response.IsSuccessStatusCode)
@@ -270,7 +282,13 @@ public class InterviewService : IInterviewService
     {
         try
         {
-            var jobServiceUrl = _configuration["ServiceUrls:JobService"] ?? "http://localhost:5003";
+            var jobServiceUrl = _configuration["ServiceUrls:JobService"];
+            if (string.IsNullOrEmpty(jobServiceUrl))
+            {
+                _logger.LogError("JobService URL is not configured");
+                return false;
+            }
+
             var response = await _httpClient.GetAsync($"{jobServiceUrl}/api/job/{jobId}");
             
             if (!response.IsSuccessStatusCode)
@@ -310,7 +328,13 @@ public class InterviewService : IInterviewService
     {
         try
         {
-            var applicationServiceUrl = _configuration["ServiceUrls:ApplicationService"] ?? "http://localhost:5004";
+            var applicationServiceUrl = _configuration["ServiceUrls:ApplicationService"];
+            if (string.IsNullOrEmpty(applicationServiceUrl))
+            {
+                _logger.LogError("ApplicationService URL is not configured");
+                return;
+            }
+
             var updateRequest = new { Status = status };
             var content = JsonSerializer.Serialize(updateRequest);
             
@@ -375,8 +399,13 @@ public class InterviewService : IInterviewService
     {
         try
         {
-            var notificationServiceUrl = _configuration["ServiceUrls:NotificationService"] ?? "http://localhost:5006";
-            
+            var notificationServiceUrl = _configuration["ServiceUrls:NotificationService"];
+            if (string.IsNullOrEmpty(notificationServiceUrl))
+            {
+                _logger.LogError("NotificationService URL is not configured");
+                return;
+            }
+
             _logger.LogInformation(
                 "Sending interview notification to user {UserId} via {Url}",
                 interview.CandidateId,

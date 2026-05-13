@@ -41,3 +41,4 @@ D:\HireCoonectBackend\services\api-gateway\obj\Debug\net8.0\refint\HireConnect.A
 D:\HireCoonectBackend\services\api-gateway\obj\Debug\net8.0\HireConnect.ApiGateway.pdb
 D:\HireCoonectBackend\services\api-gateway\obj\Debug\net8.0\HireConnect.ApiGateway.genruntimeconfig.cache
 D:\HireCoonectBackend\services\api-gateway\obj\Debug\net8.0\ref\HireConnect.ApiGateway.dll
+D:\HireCoonectBackend\services\api-gateway\bin\Debug\net8.0\appsettings.Production.json

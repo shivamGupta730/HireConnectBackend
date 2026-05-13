@@ -171,12 +171,18 @@ public class ApplicationService : IApplicationService
     {
         try
         {
-            var jobServiceUrl = _configuration["ServiceUrls:JobService"] ?? "http://localhost:5003";
+            var jobServiceUrl = _configuration["ServiceUrls:JobService"];
+            if (string.IsNullOrEmpty(jobServiceUrl))
+            {
+                _logger.LogError("JobService URL is not configured");
+                return (false, false);
+            }
+
             var response = await _httpClient.GetAsync($"{jobServiceUrl}/api/job/{jobId}");
             
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogWarning("Job API returned non-success status code {StatusCode} for jobId {JobId}", response.StatusCode, jobId);
+                _logger.LogWarning("Job API returned non-success status code {StatusCode} for jobId {JobId} at {Url}", response.StatusCode, jobId, jobServiceUrl);
                 return (false, false);
             }
 
@@ -240,7 +246,13 @@ public class ApplicationService : IApplicationService
     {
         try
         {
-            var jobServiceUrl = _configuration["ServiceUrls:JobService"] ?? "http://localhost:5003";
+            var jobServiceUrl = _configuration["ServiceUrls:JobService"];
+            if (string.IsNullOrEmpty(jobServiceUrl))
+            {
+                _logger.LogError("JobService URL is not configured");
+                return false;
+            }
+
             var response = await _httpClient.GetAsync($"{jobServiceUrl}/api/job/{jobId}");
             
             if (!response.IsSuccessStatusCode)
@@ -317,12 +329,18 @@ public class ApplicationService : IApplicationService
                 message = "Application submitted successfully"
             };
 
-            var notificationServiceUrl = _configuration["ServiceUrls:NotificationService"] ?? "http://localhost:5006";
+            var notificationServiceUrl = _configuration["ServiceUrls:NotificationService"];
+            if (string.IsNullOrEmpty(notificationServiceUrl))
+            {
+                _logger.LogError("NotificationService URL is not configured");
+                return;
+            }
+
             var response = await _httpClient.PostAsJsonAsync($"{notificationServiceUrl}/api/Notification", notification);
 
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogError("Notification API failed with status {Status}", response.StatusCode);
+                _logger.LogError("Notification API failed with status {Status} at {Url}", response.StatusCode, notificationServiceUrl);
             }
             else
             {

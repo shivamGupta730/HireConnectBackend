@@ -113,3 +113,4 @@ D:\HireCoonectBackend\services\application-service\obj\Debug\net8.0\refint\HireC
 D:\HireCoonectBackend\services\application-service\obj\Debug\net8.0\HireConnect.ApplicationService.pdb
 D:\HireCoonectBackend\services\application-service\obj\Debug\net8.0\HireConnect.ApplicationService.genruntimeconfig.cache
 D:\HireCoonectBackend\services\application-service\obj\Debug\net8.0\ref\HireConnect.ApplicationService.dll
+D:\HireCoonectBackend\services\application-service\bin\Debug\net8.0\appsettings.Production.json

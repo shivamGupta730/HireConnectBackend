@@ -516,3 +516,4 @@ D:\HireCoonectBackend\tests\HireConnect.AuthService.Tests\obj\Debug\net8.0\refin
 D:\HireCoonectBackend\tests\HireConnect.AuthService.Tests\obj\Debug\net8.0\HireConnect.AuthService.Tests.pdb
 D:\HireCoonectBackend\tests\HireConnect.AuthService.Tests\obj\Debug\net8.0\HireConnect.AuthService.Tests.genruntimeconfig.cache
 D:\HireCoonectBackend\tests\HireConnect.AuthService.Tests\obj\Debug\net8.0\ref\HireConnect.AuthService.Tests.dll
+D:\HireCoonectBackend\tests\HireConnect.AuthService.Tests\bin\Debug\net8.0\appsettings.Production.json

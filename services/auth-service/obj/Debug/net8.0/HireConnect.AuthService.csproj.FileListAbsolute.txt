@@ -114,3 +114,4 @@ D:\HireCoonectBackend\services\auth-service\obj\Debug\net8.0\refint\HireConnect.
 D:\HireCoonectBackend\services\auth-service\obj\Debug\net8.0\HireConnect.AuthService.pdb
 D:\HireCoonectBackend\services\auth-service\obj\Debug\net8.0\HireConnect.AuthService.genruntimeconfig.cache
 D:\HireCoonectBackend\services\auth-service\obj\Debug\net8.0\ref\HireConnect.AuthService.dll
+D:\HireCoonectBackend\services\auth-service\bin\Debug\net8.0\appsettings.Production.json

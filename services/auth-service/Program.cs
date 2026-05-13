@@ -15,7 +15,8 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 // Configure API base URL for OAuth callbacks
-builder.Configuration["ApiBaseUrl"] = builder.Configuration.GetValue<string>("ApiBaseUrl", "http://localhost:5000");
+// Read from config, no hardcoded localhost fallback for production
+builder.Configuration["ApiBaseUrl"] = builder.Configuration["ApiBaseUrl"] ?? "http://localhost:5000";
 
 // Add services to the container.
 builder.Services.AddDbContext<AuthDbContext>(options =>
