@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "68TobsKtlNLSRSbOUfNNpzfKsWW/JqjOVVv0yn9xAWk=",
+  "Source": "HireConnect.AuthService",
+  "BasePath": "_content/HireConnect.AuthService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -19,12 +19,12 @@ public class NotificationDbContext : DbContext
         {
             entity.ToTable("notifications", "notification");
             entity.HasKey(e => e.NotificationId);
-            entity.Property(e => e.NotificationId).HasColumnName("NotificationId");
-            entity.Property(e => e.UserId).HasColumnName("UserId").IsRequired();
-            entity.Property(e => e.Type).HasColumnName("Type").IsRequired().HasMaxLength(100);
-            entity.Property(e => e.Message).HasColumnName("Message").IsRequired().HasMaxLength(500);
-            entity.Property(e => e.IsRead).HasColumnName("IsRead").HasDefaultValue(false);
-            entity.Property(e => e.CreatedAt).HasColumnName("CreatedAt").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.NotificationId).HasColumnName("notificationid");
+            entity.Property(e => e.UserId).HasColumnName("userid").IsRequired();
+            entity.Property(e => e.Type).HasColumnName("type").IsRequired().HasMaxLength(100);
+            entity.Property(e => e.Message).HasColumnName("message").IsRequired().HasMaxLength(500);
+            entity.Property(e => e.IsRead).HasColumnName("isread").HasDefaultValue(false);
+            entity.Property(e => e.CreatedAt).HasColumnName("createdat").HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             // Indexes for performance optimization
             entity.HasIndex(e => e.UserId).HasDatabaseName("IX_Notifications_UserId");

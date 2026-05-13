@@ -18,6 +18,7 @@ namespace HireConnect.ProfileService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("profile")
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -41,10 +42,14 @@ namespace HireConnect.ProfileService.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Experience")
                         .HasColumnType("text");
+
+                    b.Property<int>("ExperienceYears")
+                        .HasColumnType("integer");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -58,7 +63,8 @@ namespace HireConnect.ProfileService.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Mobile")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("PortfolioUrl")
                         .HasColumnType("text");
@@ -78,7 +84,10 @@ namespace HireConnect.ProfileService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("candidates", (string)null);
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("candidates", "profile");
                 });
 
             modelBuilder.Entity("HireConnect.Shared.Models.Recruiter", b =>
@@ -95,7 +104,8 @@ namespace HireConnect.ProfileService.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("CompanySize")
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -105,15 +115,22 @@ namespace HireConnect.ProfileService.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<string>("Designation")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Headquarters")
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Industry")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -122,11 +139,15 @@ namespace HireConnect.ProfileService.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Website")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("recruiters", (string)null);
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("recruiters", "profile");
                 });
 #pragma warning restore 612, 618
         }

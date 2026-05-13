@@ -18,16 +18,16 @@ public class InterviewDbContext : DbContext
         modelBuilder.Entity<Interview>(entity =>
         {
             entity.ToTable("interviews", "interview");
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.ApplicationId).HasColumnName("ApplicationId");
-            entity.Property(e => e.JobId).HasColumnName("JobId");
-            entity.Property(e => e.CandidateId).HasColumnName("CandidateId");
-            entity.Property(e => e.ScheduledAt).HasColumnName("ScheduledAt");
-            entity.Property(e => e.MeetingLink).HasColumnName("MeetingLink").HasMaxLength(500);
-            entity.Property(e => e.Status).HasColumnName("Status");
-            entity.Property(e => e.Notes).HasColumnName("Notes").HasMaxLength(1000);
-            entity.Property(e => e.CreatedAt).HasColumnName("CreatedAt");
-            entity.Property(e => e.UpdatedAt).HasColumnName("UpdatedAt");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ApplicationId).HasColumnName("applicationid");
+            entity.Property(e => e.JobId).HasColumnName("jobid");
+            entity.Property(e => e.CandidateId).HasColumnName("candidateid");
+            entity.Property(e => e.ScheduledAt).HasColumnName("scheduledat");
+            entity.Property(e => e.MeetingLink).HasColumnName("meetinglink").HasMaxLength(500);
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Notes).HasColumnName("notes").HasMaxLength(1000);
+            entity.Property(e => e.CreatedAt).HasColumnName("createdat");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedat");
         });
     }
 }

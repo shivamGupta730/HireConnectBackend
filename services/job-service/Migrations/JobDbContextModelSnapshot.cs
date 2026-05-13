@@ -17,6 +17,7 @@ namespace HireConnect.JobService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("job")
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -76,7 +77,8 @@ namespace HireConnect.JobService.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("PostedBy")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("PostedBy");
 
                     b.Property<string>("Requirements")
                         .HasMaxLength(2000)
@@ -114,7 +116,7 @@ namespace HireConnect.JobService.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("jobs", (string)null);
+                    b.ToTable("jobs", "job");
                 });
 #pragma warning restore 612, 618
         }

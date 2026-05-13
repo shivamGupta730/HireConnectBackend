@@ -10,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // 🔥 DATABASE
 builder.Services.AddDbContext<ProfileDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        x => x.MigrationsHistoryTable("__EFMigrationsHistory", "profile")));
 
 // 🔥 DEPENDENCY INJECTION
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();

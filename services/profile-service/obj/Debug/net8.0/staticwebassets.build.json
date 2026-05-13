@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "PdzlCLKAqfwdvvViUa116TshB4VjULiwJoAiJkYobSU=",
+  "Source": "HireConnect.ProfileService",
+  "BasePath": "_content/HireConnect.ProfileService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "HireConnect.ProfileService\\wwwroot",
+      "Source": "HireConnect.ProfileService",
+      "ContentRoot": "D:\\HireCoonectBackend\\services\\profile-service\\wwwroot\\",
+      "BasePath": "_content/HireConnect.ProfileService",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
