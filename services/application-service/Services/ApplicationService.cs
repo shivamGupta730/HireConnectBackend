@@ -176,6 +176,7 @@ public class ApplicationService : IApplicationService
             
             if (!response.IsSuccessStatusCode)
             {
+                _logger.LogWarning("Job API returned non-success status code {StatusCode} for jobId {JobId}", response.StatusCode, jobId);
                 return (false, false);
             }
 
@@ -192,6 +193,15 @@ public class ApplicationService : IApplicationService
             {
                 data = dp;
             }
+            
+            // Check for "success" property in wrapper
+            if (jobResponse.TryGetProperty("success", out var successProp) || jobResponse.TryGetProperty("Success", out successProp))
+            {
+                if (successProp.ValueKind == JsonValueKind.False)
+                {
+                    return (false, false);
+                }
+            }
 
             // Check both camelCase and PascalCase for "status"
             if (data.TryGetProperty("status", out var statusProp) || data.TryGetProperty("Status", out statusProp))
@@ -205,9 +215,16 @@ public class ApplicationService : IApplicationService
                 {
                     var statusString = statusProp.GetString();
                     if (statusString == "Active" || statusString == "1") statusValue = 1;
+                    else if (int.TryParse(statusString, out var parsedStatus)) statusValue = parsedStatus;
                 }
 
                 return (true, statusValue == 1); // 1 = Active
+            }
+            
+            // If we found an "id" property, the job exists even if status is missing (default to active for now if missing)
+            if (data.TryGetProperty("id", out _) || data.TryGetProperty("Id", out _))
+            {
+                return (true, true);
             }
             
             return (false, false);

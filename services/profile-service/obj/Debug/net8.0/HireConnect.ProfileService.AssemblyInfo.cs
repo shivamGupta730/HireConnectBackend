@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HireConnect.ProfileService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02e5f80a8efb3910b9feb7826bbbff4f3e46bdb6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d5c166dcbd5848c0214ddf79d8ceaeac5c9800f")]
 [assembly: System.Reflection.AssemblyProductAttribute("HireConnect.ProfileService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HireConnect.ProfileService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
