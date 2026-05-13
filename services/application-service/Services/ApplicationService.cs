@@ -257,7 +257,8 @@ public class ApplicationService : IApplicationService
                 message = "Application submitted successfully"
             };
 
-            var response = await _httpClient.PostAsJsonAsync("http://localhost:5006/api/Notification", notification);
+            var notificationServiceUrl = _configuration["ServiceUrls:NotificationService"] ?? "http://localhost:5006";
+            var response = await _httpClient.PostAsJsonAsync($"{notificationServiceUrl}/api/Notification", notification);
 
             if (!response.IsSuccessStatusCode)
             {
