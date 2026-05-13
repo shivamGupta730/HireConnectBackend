@@ -8,9 +8,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔥 FIX PORT (PERMANENT)
-builder.WebHost.UseUrls("http://localhost:5001");
-
 // 🔥 DATABASE
 builder.Services.AddDbContext<ProfileDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));

@@ -525,7 +525,8 @@ public class ProfileController : ControllerBase
         }
 
         // Update resume URL in database
-        existingProfile.ResumeUrl = $"http://localhost:5001/uploads/resumes/{fileName}";
+        var baseUrl = $"{Request.Scheme}://{Request.Host}";
+        existingProfile.ResumeUrl = $"{baseUrl}/uploads/resumes/{fileName}";
         existingProfile.UpdatedAt = DateTime.UtcNow;
 
         var updatedProfile = await _profileService.UpdateCandidateAsync(existingProfile);
