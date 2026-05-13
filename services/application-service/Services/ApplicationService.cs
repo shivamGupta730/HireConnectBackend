@@ -182,10 +182,32 @@ public class ApplicationService : IApplicationService
             var content = await response.Content.ReadAsStringAsync();
             var jobResponse = JsonSerializer.Deserialize<JsonElement>(content);
             
-            if (jobResponse.TryGetProperty("status", out var statusProperty))
+            // Handle optional ApiResponse wrapper
+            JsonElement data = jobResponse;
+            if (jobResponse.TryGetProperty("data", out var d))
             {
-                var status = statusProperty.GetInt32();
-                return (true, status == 1); // 1 = Active
+                data = d;
+            }
+            else if (jobResponse.TryGetProperty("Data", out var dp))
+            {
+                data = dp;
+            }
+
+            // Check both camelCase and PascalCase for "status"
+            if (data.TryGetProperty("status", out var statusProp) || data.TryGetProperty("Status", out statusProp))
+            {
+                int statusValue = 0;
+                if (statusProp.ValueKind == JsonValueKind.Number)
+                {
+                    statusValue = statusProp.GetInt32();
+                }
+                else if (statusProp.ValueKind == JsonValueKind.String)
+                {
+                    var statusString = statusProp.GetString();
+                    if (statusString == "Active" || statusString == "1") statusValue = 1;
+                }
+
+                return (true, statusValue == 1); // 1 = Active
             }
             
             return (false, false);
@@ -212,10 +234,31 @@ public class ApplicationService : IApplicationService
             var content = await response.Content.ReadAsStringAsync();
             var jobResponse = JsonSerializer.Deserialize<JsonElement>(content);
             
-            if (jobResponse.TryGetProperty("postedBy", out var postedByProperty))
+            // Handle optional ApiResponse wrapper
+            JsonElement data = jobResponse;
+            if (jobResponse.TryGetProperty("data", out var d))
             {
-                var postedBy = postedByProperty.GetInt32();
-                return postedBy == recruiterId;
+                data = d;
+            }
+            else if (jobResponse.TryGetProperty("Data", out var dp))
+            {
+                data = dp;
+            }
+
+            // Check both camelCase and PascalCase for "postedBy"
+            if (data.TryGetProperty("postedBy", out var postedByProp) || data.TryGetProperty("PostedBy", out postedByProp))
+            {
+                int postedByValue = 0;
+                if (postedByProp.ValueKind == JsonValueKind.Number)
+                {
+                    postedByValue = postedByProp.GetInt32();
+                }
+                else if (postedByProp.ValueKind == JsonValueKind.String)
+                {
+                    int.TryParse(postedByProp.GetString(), out postedByValue);
+                }
+
+                return postedByValue == recruiterId;
             }
             
             return false;

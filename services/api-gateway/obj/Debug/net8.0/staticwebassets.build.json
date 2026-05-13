@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GfWOpezBkNGtcNm1JTI7Ye5O+N6kJFfwjUW2fvljdWY=",
+  "Source": "HireConnect.ApiGateway",
+  "BasePath": "_content/HireConnect.ApiGateway",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

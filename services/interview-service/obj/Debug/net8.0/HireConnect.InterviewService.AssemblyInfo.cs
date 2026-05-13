@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HireConnect.InterviewService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9caa4a1b4f6ac28768ff39d4c331b232d397eca2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02e5f80a8efb3910b9feb7826bbbff4f3e46bdb6")]
 [assembly: System.Reflection.AssemblyProductAttribute("HireConnect.InterviewService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HireConnect.InterviewService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

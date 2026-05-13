@@ -182,14 +182,26 @@ public class InterviewService : IInterviewService
             var content = await response.Content.ReadAsStringAsync();
             var applicationResponse = JsonSerializer.Deserialize<JsonElement>(content);
             
-            if (applicationResponse.TryGetProperty("jobId", out var jobIdProperty) &&
-                applicationResponse.TryGetProperty("candidateId", out var candidateIdProperty))
+            JsonElement data = applicationResponse;
+            if (applicationResponse.TryGetProperty("data", out var d))
             {
-                return new ApplicationInfo
+                data = d;
+            }
+            else if (applicationResponse.TryGetProperty("Data", out var dp))
+            {
+                data = dp;
+            }
+
+            if (data.TryGetProperty("jobId", out var jobIdProp) || data.TryGetProperty("JobId", out jobIdProp))
+            {
+                if (data.TryGetProperty("candidateId", out var candidateIdProp) || data.TryGetProperty("CandidateId", out candidateIdProp))
                 {
-                    JobId = jobIdProperty.GetInt32(),
-                    CandidateId = candidateIdProperty.GetInt32()
-                };
+                    return new ApplicationInfo
+                    {
+                        JobId = jobIdProp.GetInt32(),
+                        CandidateId = candidateIdProp.GetInt32()
+                    };
+                }
             }
 
             return null;
@@ -216,13 +228,23 @@ public class InterviewService : IInterviewService
             var content = await response.Content.ReadAsStringAsync();
             var applicationResponse = JsonSerializer.Deserialize<JsonElement>(content);
             
-            if (!applicationResponse.TryGetProperty("jobId", out var jobIdProperty) ||
-                !applicationResponse.TryGetProperty("candidateId", out var candidateIdProperty))
+            JsonElement data = applicationResponse;
+            if (applicationResponse.TryGetProperty("data", out var d))
+            {
+                data = d;
+            }
+            else if (applicationResponse.TryGetProperty("Data", out var dp))
+            {
+                data = dp;
+            }
+
+            if (!(data.TryGetProperty("jobId", out var jobIdProp) || data.TryGetProperty("JobId", out jobIdProp)) ||
+                !(data.TryGetProperty("candidateId", out var candidateIdProp) || data.TryGetProperty("CandidateId", out candidateIdProp)))
             {
                 return null;
             }
-
-            var jobId = jobIdProperty.GetInt32();
+            
+            var jobId = jobIdProp.GetInt32();
             
             // Validate recruiter owns the job
             var jobOwnership = await ValidateJobOwnershipAsync(jobId, recruiterId);
@@ -234,7 +256,7 @@ public class InterviewService : IInterviewService
             return new ApplicationInfo
             {
                 JobId = jobId,
-                CandidateId = candidateIdProperty.GetInt32()
+                CandidateId = candidateIdProp.GetInt32()
             };
         }
         catch (Exception ex)
@@ -259,9 +281,19 @@ public class InterviewService : IInterviewService
             var content = await response.Content.ReadAsStringAsync();
             var jobResponse = JsonSerializer.Deserialize<JsonElement>(content);
             
-            if (jobResponse.TryGetProperty("postedBy", out var postedByProperty))
+            JsonElement data = jobResponse;
+            if (jobResponse.TryGetProperty("data", out var d))
             {
-                var postedBy = postedByProperty.GetInt32();
+                data = d;
+            }
+            else if (jobResponse.TryGetProperty("Data", out var dp))
+            {
+                data = dp;
+            }
+
+            if (data.TryGetProperty("postedBy", out var postedByProp) || data.TryGetProperty("PostedBy", out postedByProp))
+            {
+                var postedBy = postedByProp.GetInt32();
                 return postedBy == recruiterId;
             }
             

@@ -18,6 +18,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Application>(entity =>
         {
             entity.ToTable("applications", "application");
+            entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.JobId).HasColumnName("jobid");
             entity.Property(e => e.CandidateId).HasColumnName("candidateid");
